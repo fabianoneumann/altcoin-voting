@@ -6,5 +6,5 @@ export abstract class VotesRepository {
 
   abstract findMany(): Promise<Vote[]>;
 
-  abstract findByUser(userId: string): Promise<Vote[]>;
+  abstract findByUserId(userId: string): Promise<Vote[]>;
 }

@@ -21,6 +21,6 @@ export class VotesController {
 
     @Get('/user/:userId')
     async findByUserId(@Param('userId') userId: string) {
-        return await this.votesRepository.findByUser(userId);
+        return await this.votesRepository.findByUserId(userId);
     }
 }
