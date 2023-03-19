@@ -24,4 +24,14 @@ export class PrismaVotesRepository implements VotesRepository {
 
     return votes;
   }
+
+  async findByUser(userId: string): Promise<Vote[]> {
+    const votes = await this.prisma.vote.findMany({
+      where: {
+        userId: userId,
+      },
+    })
+
+    return votes;
+  }
 }

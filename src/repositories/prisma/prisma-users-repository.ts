@@ -8,9 +8,9 @@ import { UsersRepository } from '../users-repository';
 @Injectable()
 export class PrismaUsersRepository implements UsersRepository {
   constructor(private prisma: PrismaService) {}
-
-  async create(email: string, password: string): Promise<void> {
-    await this.prisma.user.create({
+  
+  async create(email: string, password: string): Promise<User> {
+    return await this.prisma.user.create({
       data: {
         id: randomUUID(),
         email,
@@ -23,5 +23,41 @@ export class PrismaUsersRepository implements UsersRepository {
     const users = await this.prisma.user.findMany();
 
     return users;
+  }
+
+  async update(id: string, email: string, password: string): Promise<User> {
+    return await this.prisma.user.update({
+      where: {
+        id: id,
+      },
+      data: {
+        email: email,
+        password: password,
+      }
+    })
+  }
+
+  async delete(id: string) {
+    await this.prisma.user.delete({
+      where: {
+        id: id,
+      },
+    })
+  }
+
+  async findById(id: string): Promise<User> {
+    return await this.prisma.user.findUnique({
+      where: {
+        id: id,
+      },
+    })
+  }
+
+  async findByEmail(email: string): Promise<User> {
+    return await this.prisma.user.findUnique({
+      where: {
+        email: email,
+      }
+    })
   }
 }

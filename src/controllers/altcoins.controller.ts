@@ -1,6 +1,5 @@
 /* eslint-disable prettier/prettier */
 import { Controller, Get, Body, Post, Put, Param, Delete } from '@nestjs/common';
-import { Altcoin } from '@prisma/client';
 import { CreateAltcoinBody } from 'src/dtos/create-altcoin-body';
 import { AltcoinsRepository } from 'src/repositories/altcoins-repository';
 

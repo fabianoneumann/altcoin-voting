@@ -5,4 +5,6 @@ export abstract class VotesRepository {
   abstract create(altcoinId: string, userId: string): Promise<void>;
 
   abstract findMany(): Promise<Vote[]>;
+
+  abstract findByUser(userId: string): Promise<Vote[]>;
 }

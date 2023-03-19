@@ -29,7 +29,7 @@ export class PrismaAltcoinsRepository implements AltcoinsRepository {
   //TODO: Testar a remoção do Alcoin de dentro da promise e retirar o return e a const alcoin, como no método create
   //         1o testar como está e depois testar a alternativa
   async update(id: string, name: string, ticker: string): Promise<Altcoin> {
-    const altcoin = await this.prisma.altcoin.update({
+    return await this.prisma.altcoin.update({
       where: {
         id: id,
       },
@@ -38,8 +38,6 @@ export class PrismaAltcoinsRepository implements AltcoinsRepository {
         ticker: ticker,
       }
     })
-
-    return altcoin;
   }
 
   async delete(id: string) {
@@ -51,22 +49,18 @@ export class PrismaAltcoinsRepository implements AltcoinsRepository {
   }
 
   async findById(id: string): Promise<Altcoin> | null {
-    const altcoin = await this.prisma.altcoin.findUnique({
+    return await this.prisma.altcoin.findUnique({
       where: {
         id: id,
       },
     })
-
-    return altcoin;
   }
   
   async findByTicker(ticker: string): Promise<Altcoin> | null {
-    const altcoin = await this.prisma.altcoin.findUnique({
+    return await this.prisma.altcoin.findUnique({
       where: {
         ticker: ticker,
       },
     })
-
-    return altcoin;
   }
 }
