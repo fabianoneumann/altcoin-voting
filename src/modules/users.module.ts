@@ -1,7 +1,7 @@
 /* eslint-disable prettier/prettier */
 import { Module } from '@nestjs/common';
 import { PrismaService } from 'src/database/prisma.service';
-import { UsersController } from 'src/controllers/users.controllers';
+import { UsersController } from 'src/controllers/users.controller';
 import { UsersRepository } from 'src/repositories/users-repository';
 import { PrismaUsersRepository } from 'src/repositories/prisma/prisma-users-repository';
 
