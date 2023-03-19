@@ -16,12 +16,12 @@ export class UsersController {
     }
 
     @Get()
-    async findAll(): Promise<User[]> {
+    async findAll() {
        return await this.usersRepository.findMany();
     }
 
     @Put('/:id')
-    async update(@Param('id') id: string, @Body() body: CreateUserBody): Promise<User> {
+    async update(@Param('id') id: string, @Body() body: CreateUserBody) {
         const {email, password} = body;
 
         return await this.usersRepository.update(id, email, password);
@@ -35,14 +35,12 @@ export class UsersController {
     }
 
     @Get('/:id')
-    async findById(@Param('id') id: string): Promise<User> {
+    async findById(@Param('id') id: string) {
         return await this.usersRepository.findById(id);
     }
 
-    @Get('/email')
-    async findByEmail(@Body() body: CreateUserBody): Promise<User> {
-        const { email } = body;
-
+    @Get('/email/:email')
+    async findByEmail(@Param('email') email: string) {
         return await this.usersRepository.findByEmail(email);
     }
 }
