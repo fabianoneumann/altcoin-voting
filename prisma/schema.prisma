@@ -1,0 +1,31 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Altcoin {
+  id String @id
+  name String
+  ticker String @unique
+  votes Vote[]
+}
+
+model User {
+  id String @id
+  email String @unique
+  password String
+  votes Vote[]
+}
+
+model Vote { 
+  id String @id
+  createdAt DateTime @default(now())
+  user User @relation(fields: [userId], references: [id])
+  userId String
+  altcoin Altcoin @relation(fields: [altcoinId], references: [id])
+  altcoinId String
+}
