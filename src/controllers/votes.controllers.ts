@@ -1,6 +1,5 @@
 /* eslint-disable prettier/prettier */
 import { Controller, Get, Body, Post, Param } from '@nestjs/common';
-import { Vote } from '@prisma/client';
 import { CreateVoteBody } from 'src/dtos/create-vote-body';
 import { VotesRepository } from 'src/repositories/votes-repository';
 
@@ -16,7 +15,7 @@ export class VotesController {
     }
 
     @Get()
-    async findAll(): Promise<Vote[]> {
+    async findAll() {
        return await this.votesRepository.findMany();
     }
 

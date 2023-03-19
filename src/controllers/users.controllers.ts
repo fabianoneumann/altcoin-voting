@@ -1,6 +1,5 @@
 /* eslint-disable prettier/prettier */
 import { Controller, Get, Body, Post, Put, Param, Delete } from '@nestjs/common';
-import { User } from '@prisma/client';
 import { CreateUserBody } from 'src/dtos/create-user-body';
 import { UsersRepository } from 'src/repositories/users-repository';
 
