@@ -2,7 +2,10 @@
 import { Controller, Get, Body, Post, Param } from '@nestjs/common';
 import { CreateVoteBody } from 'src/dtos/create-vote-body';
 import { VotesRepository } from 'src/repositories/votes-repository';
+import {ApiQuery, ApiSecurity, ApiTags} from "@nestjs/swagger";
+import { Public } from 'src/decorators/public';
 
+@ApiTags('votes')
 @Controller('votes')
 export class VotesController {
     constructor(private votesRepository: VotesRepository) {}
@@ -15,6 +18,7 @@ export class VotesController {
     }
 
     @Get()
+    @Public()
     async findAll() {
        return await this.votesRepository.findMany();
     }

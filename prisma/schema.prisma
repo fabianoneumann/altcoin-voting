@@ -9,13 +9,14 @@ datasource db {
 
 model Altcoin {
   id String @id
-  name String
+  name String @unique
   ticker String @unique
   votes Vote[]
 }
 
 model User {
   id String @id
+  username String @unique
   email String @unique
   password String
   votes Vote[]

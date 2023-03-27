@@ -1,45 +1,64 @@
 /* eslint-disable prettier/prettier */
-import { Controller, Get, Body, Post, Put, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Body, Post, Request, Put, Param, Delete, ClassSerializerInterceptor } from '@nestjs/common';
 import { CreateUserBody } from 'src/dtos/create-user-body';
-import { UsersRepository } from 'src/repositories/users-repository';
+import { UsersService } from 'src/services/users.service';
+import { ApiTags } from "@nestjs/swagger";
+import { Public } from 'src/decorators/public';
+import { UpdatePasswordBody } from 'src/dtos/update-password-body';
+import { LoginUserBody } from 'src/dtos/login-user-body';
 
+@ApiTags('users')
 @Controller('users')
 export class UsersController {
-    constructor(private usersRepository: UsersRepository) {}
+    constructor(private usersService: UsersService) {}
 
     @Post()
-    async create(@Body() body: CreateUserBody) {
-        const { email, password } = body;
-
-        await this.usersRepository.create(email, password);
+    create(@Body() user: CreateUserBody) {
+        this.usersService.create(user);
     }
 
     @Get()
-    async findAll() {
-       return await this.usersRepository.findMany();
+    @Public()
+    async findMany() {
+       return await this.usersService.findMany();
     }
 
     @Put('/:id')
     async update(@Param('id') id: string, @Body() body: CreateUserBody) {
-        const {email, password} = body;
+        const {username, email, password} = body;
 
-        return await this.usersRepository.update(id, email, password);
+        return await this.usersService.update(id, username, email, password);
+    }
+
+    @Put('/updatePassword/:id')
+    async updatePassword(@Param('id') id: string, @Body() body: UpdatePasswordBody) {
+        const { oldPassword, newPassword } = body;
+
+        return await this.usersService.updatePassword(id, {oldPassword, newPassword});
     }
 
     @Delete('/:id')
     async delete(@Param('id') id: string) {
-        await this.usersRepository.delete(id);
+        await this.usersService.delete(id);
 
         return { message: 'Objeto excluido com sucesso!' };
     }
 
     @Get('/:id')
     async findById(@Param('id') id: string) {
-        return await this.usersRepository.findById(id);
+        return await this.usersService.findById(id);
     }
 
-    @Get('/email/:email')
-    async findByEmail(@Param('email') email: string) {
-        return await this.usersRepository.findByEmail(email);
+    @Get('/email')
+    async findByEmail(@Body() body: LoginUserBody) {
+        const { email } = body;
+        return await this.usersService.findByEmail(email);
+    }
+
+    //@UseGuards(JwtAuthGuard)
+    @Get('/profile')
+    async getProfile(@Body() body: LoginUserBody) {
+        const { email } = body;
+        return await this.usersService.findByEmail(email);
     }
 }

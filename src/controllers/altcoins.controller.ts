@@ -2,7 +2,10 @@
 import { Controller, Get, Body, Post, Put, Param, Delete } from '@nestjs/common';
 import { CreateAltcoinBody } from 'src/dtos/create-altcoin-body';
 import { AltcoinsRepository } from 'src/repositories/altcoins-repository';
+import {ApiQuery, ApiSecurity, ApiTags} from "@nestjs/swagger";
+import { Public } from 'src/decorators/public';
 
+@ApiTags('altcoins')
 @Controller('altcoins')
 export class AltcoinsController {
     constructor(private altcoinsRepository: AltcoinsRepository) {}
@@ -15,6 +18,7 @@ export class AltcoinsController {
     }
 
     @Get()
+    @Public()
     async findAll() {
         return await this.altcoinsRepository.findMany();
     }

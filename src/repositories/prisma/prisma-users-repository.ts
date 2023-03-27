@@ -9,10 +9,11 @@ import { UsersRepository } from '../users-repository';
 export class PrismaUsersRepository implements UsersRepository {
   constructor(private prisma: PrismaService) {}
   
-  async create(email: string, password: string): Promise<User> {
+  async create(username: string, email: string, password: string): Promise<User> {
     return await this.prisma.user.create({
       data: {
         id: randomUUID(),
+        username,
         email,
         password,
       },
@@ -25,14 +26,15 @@ export class PrismaUsersRepository implements UsersRepository {
     return users;
   }
 
-  async update(id: string, email: string, password: string): Promise<User> {
+  async update(id: string, username:string, email: string, password: string): Promise<User> {
     return await this.prisma.user.update({
       where: {
         id: id,
       },
       data: {
-        email: email,
-        password: password,
+        username,
+        email,
+        password,
       }
     })
   }

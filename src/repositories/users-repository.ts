@@ -2,11 +2,11 @@
 import { User } from '@prisma/client'
 
 export abstract class UsersRepository {
-  abstract create(email: string, password: string): Promise<User>;
+  abstract create(username: string, email: string, password: string): Promise<User>;
 
   abstract findMany(): Promise<User[]>;
 
-  abstract update(id: string, email: string, password: string): Promise<User>;
+  abstract update(id: string, username:string, email: string, password: string): Promise<User>;
 
   abstract delete(id: string);
 

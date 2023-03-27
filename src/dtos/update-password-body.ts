@@ -2,17 +2,13 @@
 import { IsNotEmpty } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 
-export class CreateUserBody {
+export class UpdatePasswordBody {
+  
+    @ApiProperty()
+    @IsNotEmpty()
+    readonly newPassword: string;
 
     @ApiProperty()
     @IsNotEmpty()
-    username: string
-    
-    @ApiProperty()
-    @IsNotEmpty()
-    email: string;
-
-    @ApiProperty()
-    @IsNotEmpty()
-    password: string;
+    readonly oldPassword: string;
 }
