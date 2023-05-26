@@ -16,10 +16,13 @@ model Altcoin {
 
 model User {
   id String @id
+  isActive Boolean @default(false)
+  createdAt DateTime @default(now())
   username String @unique
   email String @unique
   password String
-  votes Vote[]
+  votes Vote[]  // mudar para publicVotes
+  //userProducts UserProduct[]
 }
 
 model Vote { 
@@ -30,3 +33,19 @@ model Vote {
   altcoin Altcoin @relation(fields: [altcoinId], references: [id])
   altcoinId String
 }
+
+//model Product {
+//  id String @id
+//  name String @unique
+//  description String @unique
+//  image String @unique
+//  usersProduct UserProduct[]
+//}
+
+//model UserProduct {
+//  id String @id
+//  user User @relation(fields: [userId], references: [id])
+//  userId String
+//  product Product @relation(fields: [productId], references: [id])
+//  productId String
+//}

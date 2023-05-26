@@ -13,4 +13,6 @@ export abstract class UsersRepository {
   abstract findById(id: string): Promise<User>;
 
   abstract findByEmail(email: string): Promise<User>;
+
+  abstract countUserVotesForCurrentWeek(userId: string): Promise<number>;
 }

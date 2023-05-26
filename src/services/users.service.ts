@@ -23,6 +23,11 @@ export class UsersService {
         await this.usersRepository.create(username, email, password);
     }
 
+    //Com o serviço de disparo de e-mail (VER: Nodemailer) para validação do usuário, será necessário
+    //  adicionar uma variável boleana "active" em usuário e deixar por padrão como false.
+    //  assim que o usuário acessar o link enviado no e-mail, a variável é mudada para true
+    //async activateUser()
+
     async updatePassword(id: string, {oldPassword, newPassword}: UpdatePasswordBody): Promise<User> {
         const user = await this.usersRepository.findById(id);
 
@@ -59,5 +64,9 @@ export class UsersService {
 
     async findByPayload({email}: any): Promise<any> {
         return await this.findByEmail(email);
+    }
+
+    async countUserVotesForCurrentWeek(userId: string) {
+        return await this.usersRepository.countUserVotesForCurrentWeek(userId);
     }
 }

@@ -13,12 +13,12 @@ export class UsersController {
     constructor(private usersService: UsersService) {}
 
     @Post()
+    @Public()
     create(@Body() user: CreateUserBody) {
         this.usersService.create(user);
     }
 
     @Get()
-    @Public()
     async findMany() {
        return await this.usersService.findMany();
     }
@@ -31,6 +31,7 @@ export class UsersController {
     }
 
     @Put('/updatePassword/:id')
+    @Public()
     async updatePassword(@Param('id') id: string, @Body() body: UpdatePasswordBody) {
         const { oldPassword, newPassword } = body;
 

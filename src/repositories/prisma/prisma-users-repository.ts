@@ -62,4 +62,23 @@ export class PrismaUsersRepository implements UsersRepository {
       }
     })
   }
+
+  //Código gerado com apoio do ChatGPT:
+  async countUserVotesForCurrentWeek(userId: string): Promise<number> {
+    const currentDate = new Date();
+    const startOfWeek = new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate() - currentDate.getDay());
+    const endOfWeek = new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate() + (6 - currentDate.getDay()));
+
+    const userVotesCount = await this.prisma.vote.count({
+      where: {
+        userId: userId,
+        createdAt: {
+          gte: startOfWeek,
+          lte: endOfWeek,
+        },
+      },
+    });
+
+    return userVotesCount;
+  }
 }
